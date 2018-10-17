@@ -1,6 +1,6 @@
 <%#
 kind: provision
-name: Satellite Kickstart default
+name: new_Satellite Kickstart defaul
 oses:
 - CentOS 5
 - CentOS 6
@@ -95,7 +95,7 @@ exec < /dev/tty3 > /dev/tty3
 /usr/bin/chvt 3
 (
 <% if subnet.respond_to?(:dhcp_boot_mode?) -%>
-<%= snippet 'kickstart_networking_setup' %>
+<%= snippet('new_kickstart_networking_setup', :variables => { :rhel_compabible => @rhel_compatible, :os_major => @os_major }) %>
 <% end -%>
 
 #update local time
