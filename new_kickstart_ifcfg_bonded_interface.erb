@@ -1,5 +1,5 @@
 <%#
-name: kickstart_ifcfg_bonded_interface
+name: new_kickstart_ifcfg_bonded_interface
 snippet: true
 model: ProvisioningTemplate
 kind: snippet
@@ -9,6 +9,12 @@ kind: snippet
                   :subnet => @subnet,
                   :subnet6 => @subnet6,
                   :dhcp => @dhcp }) -%>
+<% if @rhel_compatible && @os_major < 7 -%>
+# NetworkManager cannot control slave interfaces
 NM_CONTROLLED=no
+<% else -%>
+# NetworkManager should control slave interfaces
+NM_CONTROLLED=yes
+<% end -%>
 MASTER=<%= @bond_identifier %>
 SLAVE=yes

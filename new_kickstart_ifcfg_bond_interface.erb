@@ -1,5 +1,5 @@
 <%#
-name: kickstart_ifcfg_bond_interface
+name: new_kickstart_ifcfg_bond_interface
 snippet: true
 model: ProvisioningTemplate
 kind: snippet
@@ -12,4 +12,10 @@ kind: snippet
 TYPE=Bond
 BONDING_OPTS="<%= @interface.bond_options -%> mode=<%= @interface.mode -%>"
 BONDING_MASTER=yes
+<% if @rhel_compatible && @os_major < 7 -%>
+# NetworkManager cannot control slave interfaces
 NM_CONTROLLED=no
+<% else -%>
+# NetworkManager should control slave interfaces
+NM_CONTROLLED=yes
+<% end -%>

@@ -1,11 +1,11 @@
 <%#
-name: kickstart_ifcfg_get_identifier_names
+name: new_kickstart_ifcfg_get_identifier_names
 snippet: true
 model: ProvisioningTemplate
 kind: snippet
 -%>
-<%- if @identifier -%>
-<%=   "real=\"#{@identifier}\"" %>
+<%- if @interface.identifier -%>
+<%=   "real=\"#{@interface.identifier}\"" %>
 <%- else -%>
 <%=   "real=`ip -o link | awk '/#{@interface.inheriting_mac}/ {print $2;}' | sed s/:$//`" -%>
 <%-   if @interface.virtual? -%>
